@@ -1148,11 +1148,88 @@
 <h1 class="title">Voice Changer and Guitar Effects Unit</h1>
 Created by Jonathan Lu and Ahsab Alabedin
 </header>
-<h2>Description</h2>
-    <p>
-      This project is a real-time voice and guitar signal processing unit. It captures continuous audio input via PCM (either from a microphone or directly from an electric guitar output) applies user-configurable digital effects, and plays the processed audio through a speaker in real time. The system supports dynamic control of effects and parameters, enabling live experimentation with audio transformations such as distortion, bitcrushing, and pitch shifting. Designed for embedded deployment, the device performs all sampling, processing, and playback using a CC3200 microcontroller, with minimal latency and no need for external computing resources.
-    </p>
-<h2>Demo Video</h2>
+  <h2>Project Description</h2>
+  <p>This project is a real-time voice and guitar signal processing unit. It continuously captures audio from either a microphone or an electric guitar and applies digital effects in real time using a TI CC3200 microcontroller. Processed audio is streamed directly to a speaker, enabling a standalone embedded audio processor that operates without any external computing resources.</p>
+
+  <h3>Features</h3>
+  <ul>
+    <li><strong>Real-time audio capture and playback</strong> using ADC, DMA, and I2S peripherals.</li>
+    <li><strong>User-configurable audio effects</strong>, including:
+      <ul>
+        <li><strong>Distortion</strong> (amplitude clipping)</li>
+        <li><strong>Bitcrushing</strong> (bit-depth reduction)</li>
+        <li><strong>Pitch shifting</strong> (via linear interpolation)</li>
+      </ul>
+    </li>
+    <li><strong>Cloud-based configuration</strong> via AWS IoT and HTTP GET requests.</li>
+  </ul>
+    <h2>Design & Implementation</h2>
+
+  <h3>System Overview</h3>
+  <p>The project architecture integrates:</p>
+  <ul>
+    <li>An analog front-end (RC filters and biasing) to prepare input audio</li>
+    <li>A real-time loop that samples, processes, and outputs audio</li>
+    <li>AWS-based remote configuration using the CC3200’s Wi-Fi interface</li>
+  </ul>
+    <h3>Software Flow</h3>
+  <ol>
+    <li>Initialize board and peripherals (ADC, I2S, DMA, Wi-Fi).</li>
+    <li>Retrieve configuration from AWS IoT via HTTP GET.</li>
+    <li>Enter real-time loop:
+      <ul>
+        <li>Sample ADC (15.625 kHz effective rate)</li>
+        <li>Apply DC correction and filtering</li>
+        <li>Apply effect and pitch shift</li>
+        <li>Write to output buffer</li>
+      </ul>
+    </li>
+    <li>Stream audio using DMA + I2S in ping-pong mode.</li>
+  </ol>
+    <h3>Hardware Design</h3>
+  <p>Each input (mic/guitar) uses an RC filter to AC-couple and bias the signal to mid-rail. The output connects to ADC Pin 58. The I2S signals for the DAC are mapped to Pins 3 (BCLK), 63 (LRCLK), and 64 (DOUT).</p>
+<h2>AWS Integration</h2>
+  <p>Configuration parameters (input source, effect, pitch shift) are retrieved using a <strong>TLS-secured HTTP GET</strong> request to the AWS IoT Shadow endpoint. The JSON response is parsed, and the data is stored in global variables for real-time use.</p>
+  <h2>Audio Processing</h2>
+  <ul>
+    <li><strong>Sampling:</strong> ADC samples averaged in groups of 4 to reduce noise.</li>
+    <li><strong>DC Offset:</strong> Pre-calibrated zero-point values are subtracted.</li>
+    <li><strong>Filtering:</strong> 7-tap FIR low-pass filter for guitar input.</li>
+    <li><strong>Effects:</strong>
+      <ul>
+        <li><strong>Distortion</strong>: Sample clipping</li>
+        <li><strong>Bitcrushing</strong>: Zeroing LSBs</li>
+        <li><strong>None</strong>: Sample passthrough</li>
+      </ul>
+    </li>
+    <li><strong>Pitch Shift:</strong> Interpolation used to stretch/compress buffer size. Up-shifts create echoes; down-shifts clip excess.</li>
+    <li><strong>Playback:</strong> Processed buffer sent to output via DMA ping-pong into I2S FIFO.</li>
+  </ul>
+  <section>
+  <h2>Development Challenges</h2>
+  <ul>
+    <li><strong>Initial Playback:</strong> Interrupt-based I2S output failed. DMA fixed this issue.</li>
+    <li><strong>Memory Limits:</strong> CC3200 couldn’t allocate large output buffers. Reduced size fixed it.</li>
+    <li><strong>Noise Issues:</strong>
+      <ul>
+        <li>Samples needed offset correction (DAC expected signed)</li>
+        <li>120 Hz hum traced to power line. Solved with analog high-pass filter.</li>
+      </ul>
+    </li>
+    <li><strong>FFT Experiment:</strong> Custom fixed-point FFT was too slow. DMA input failed due to buffer limits. Abandoned due to time.</li>
+  </ul>
+      <h2>Future Work</h2>
+  <ul>
+    <li><strong>Efficient FFT</strong> for advanced pitch shifting. Can explore:
+      <ul>
+        <li>Reduced sample size</li>
+        <li>SRAM/optimization techniques</li>
+        <li>Approximate transforms</li>
+      </ul>
+    </li>
+    <li><strong>On-Device Config Control:</strong> Use IR receiver + OLED + TV remote to change effects. Sync via POST to AWS.</li>
+  </ul>
+  <h2>Demo Video</h2>
       <div class="video-wrapper">
       <iframe src="https://www.youtube.com/embed/l6fNjFxQzso"
         title="Project Demo Video"
