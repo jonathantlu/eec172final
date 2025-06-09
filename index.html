@@ -1,17 +1,97 @@
-<h2>Final Project Grading Rubric</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Real-Time Audio Processor – Final Project Rubric</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: white;
+      color: #111;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
 
-<h3>[2.5 pts] Project Description</h3>
-<p>
-  A thorough description of your project (essentially the same content as your written report).<br>
-  This should emphasize documentation and reproducibility.
-</p>
+    .container {
+      max-width: 800px;
+      margin: 3rem auto;
+      padding: 2rem;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
 
-<h3>[2.5 pts] Video Demo</h3>
-<p>
-  A video recording of your final project demonstration which showcases each feature of your project.
-</p>
+    .page-title {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: bold;
+      color: #00274C;
+      margin-bottom: 0.5rem;
+    }
 
-<h3>[2.5 pts] Aesthetics</h3>
-<p>
-  The project page should look at least as nice as the course instructions.
-</p>
+    .subtitle {
+      text-align: center;
+      font-size: 1.1rem;
+      color: #555;
+      margin-bottom: 2rem;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      color: #003366;
+      margin-top: 1.5rem;
+    }
+
+    p {
+      margin-left: 1rem;
+      color: #333;
+    }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 ratio */
+      padding-top: 25px;
+      height: 0;
+      margin-top: 1rem;
+    }
+
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        margin: 1rem;
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="page-title">Voice Changer and Guitar Effects Unit</div>
+    <div class="subtitle">Created by Jonathan Lu and Ahsab Alebedin</div>
+
+    <h2>[2.5 pts] Project Description</h2>
+    <p>
+      This project is a real-time voice and guitar signal processing unit. It captures continuous audio input via PCM (either from a microphone or directly from an electric guitar output) applies user-configurable digital effects, and plays the processed audio through a speaker in real time. The system supports dynamic control of effects and parameters, enabling live experimentation with audio transformations such as distortion, bitcrushing, and pitch shifting. Designed for embedded deployment, the device performs all sampling, processing, and playback using a CC3200 microcontroller, with minimal latency and no need for external computing resources.
+    </p>
+
+    <!-- Responsive YouTube Embed -->
+    <div class="video-wrapper">
+      <iframe src="https://www.youtube.com/embed/l6fNjFxQzso"
+        title="Project Demo Video"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+</body>
+</html>
