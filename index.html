@@ -1151,8 +1151,16 @@ Created by Jonathan Lu and Ahsab Alabedin
   <nav id="TOC" role="doc-toc">
   <ul>
     <li><a href="#project-description">Project Description</a></li>
+    <ul>
+      <li><a href="#features">Features</a></li>
+    </ul>
     <li><a href="#materials">Materials</a></li>
     <li><a href="#design-implementation">Design & Implementation</a></li>
+    <ul>
+      <li><a href="#system-overview">System Overview</a></li>
+      <li><a href="#software-flow">Software Flow</a></li>
+      <li><a href="#hardware-design">Hardware Design</a></li>
+    </ul>
     <li><a href="#aws-integration">AWS Integration</a></li>
     <li><a href="#audio-processing">Audio Processing</a></li>
     <li><a href="#development-challenges">Development Challenges</a></li>
@@ -1164,7 +1172,7 @@ Created by Jonathan Lu and Ahsab Alabedin
   <h2 id="project-description">Project Description</h2>
   <p>This project is a real-time voice and guitar signal processing unit. It continuously captures audio from either a microphone or an electric guitar and applies digital effects in real time using a TI CC3200 microcontroller. Processed audio is streamed directly to a speaker, enabling a standalone embedded audio processor that operates without any external computing resources.</p>
 
-  <h3>Features</h3>
+  <h3 id="features">Features</h3>
   <ul>
     <li><strong>Real-time audio capture and playback</strong> using ADC, DMA, and I2S peripherals.</li>
     <li><strong>User-configurable audio effects</strong>, including:
@@ -1191,7 +1199,7 @@ Created by Jonathan Lu and Ahsab Alabedin
   </ul>
     <h2 id="design-implementation">Design & Implementation</h2>
 
-  <h3>System Overview</h3>
+  <h3 id="system-overview">System Overview</h3>
   <img src="diagram.png" alt="System Architecture" style="max-width: 100%; height: auto;" />
   <p>The project architecture integrates:</p>
   <ul>
@@ -1199,7 +1207,7 @@ Created by Jonathan Lu and Ahsab Alabedin
     <li>A real-time loop that samples, processes, and outputs audio</li>
     <li>AWS-based remote configuration using the CC3200’s Wi-Fi interface</li>
   </ul>
-    <h3>Software Flow</h3>
+    <h3 id="software-flow">Software Flow</h3>
   <img src="fsm.png" alt="State Machine Diagram" style="max-width: 100%; height: auto;" />
   <ol>
     <li>Initialize board and peripherals (ADC, I2S, DMA, Wi-Fi).</li>
@@ -1214,7 +1222,7 @@ Created by Jonathan Lu and Ahsab Alabedin
     </li>
     <li>Stream audio using DMA + I2S in ping-pong mode.</li>
   </ol>
-    <h3>Hardware Design</h3>
+    <h3 id="hardware-design">Hardware Design</h3>
     <img src="pinout.png" alt="Wiring Setup" style="max-width: 100%; height: auto;" />
   <p>Each input (mic/guitar) uses an RC filter to AC-couple and bias the signal to mid-rail. The output connects to ADC Pin 58. The I2S signals for the DAC are mapped to Pins 3 (BCLK), 63 (LRCLK), and 64 (DOUT).</p>
 <h2 id="aws-integration">AWS Integration</h2>
