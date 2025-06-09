@@ -2,58 +2,46 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Voice Changer and Guitar Effects Unit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Final Project Rubric – Real-Time Audio Processor</title>
+  <link rel="stylesheet" href="https://tailailihe.github.io/UCDavis-EEC172-Lab-Manual/assets/css/main.css">
   <style>
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      background-color: white;
+      font-family: "Noto Serif", Georgia, serif;
+      background-color: #fdfdfd;
       color: #111;
-      line-height: 1.6;
-      margin: 0;
-      padding: 0;
     }
 
-    .container {
+    .wrapper {
       max-width: 800px;
       margin: 3rem auto;
-      padding: 2rem;
-      border: 1px solid #ddd;
-      border-radius: 6px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      padding: 0 2rem;
     }
 
-    .page-title {
-      text-align: center;
-      font-size: 2rem;
-      font-weight: bold;
-      color: #00274C;
-      margin-bottom: 0.5rem;
-    }
-
-    .subtitle {
-      text-align: center;
-      font-size: 1.1rem;
-      color: #555;
-      margin-bottom: 2rem;
+    h1 {
+      font-size: 2.25rem;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 0.3rem;
+      margin-bottom: 1.5rem;
     }
 
     h2 {
-      font-size: 1.25rem;
-      color: #003366;
-      margin-top: 1.5rem;
+      font-size: 1.5rem;
+      color: #00558c;
+      margin-top: 2rem;
     }
 
     p {
+      font-size: 1rem;
+      line-height: 1.6;
       margin-left: 1rem;
-      color: #333;
     }
 
     .video-wrapper {
       position: relative;
-      padding-bottom: 56.25%; /* 16:9 ratio */
-      padding-top: 25px;
+      padding-bottom: 56.25%;
       height: 0;
+      overflow: hidden;
       margin-top: 1rem;
     }
 
@@ -63,14 +51,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      border: none;
-    }
-
-    @media (max-width: 600px) {
-      .container {
-        margin: 1rem;
-        padding: 1rem;
-      }
+      border: 0;
     }
   </style>
 </head>
