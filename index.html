@@ -1166,6 +1166,7 @@ Created by Jonathan Lu and Ahsab Alabedin
     <h2>Design & Implementation</h2>
 
   <h3>System Overview</h3>
+  <img src="diagram.png" alt="System Architecture" style="max-width: 100%; height: auto;" />
   <p>The project architecture integrates:</p>
   <ul>
     <li>An analog front-end (RC filters and biasing) to prepare input audio</li>
@@ -1173,6 +1174,7 @@ Created by Jonathan Lu and Ahsab Alabedin
     <li>AWS-based remote configuration using the CC3200’s Wi-Fi interface</li>
   </ul>
     <h3>Software Flow</h3>
+  <img src="fsm.png" alt="State Machine Diagram" style="max-width: 100%; height: auto;" />
   <ol>
     <li>Initialize board and peripherals (ADC, I2S, DMA, Wi-Fi).</li>
     <li>Retrieve configuration from AWS IoT via HTTP GET.</li>
@@ -1187,6 +1189,7 @@ Created by Jonathan Lu and Ahsab Alabedin
     <li>Stream audio using DMA + I2S in ping-pong mode.</li>
   </ol>
     <h3>Hardware Design</h3>
+    <img src="pinout.png" alt="Wiring Setup" style="max-width: 100%; height: auto;" />
   <p>Each input (mic/guitar) uses an RC filter to AC-couple and bias the signal to mid-rail. The output connects to ADC Pin 58. The I2S signals for the DAC are mapped to Pins 3 (BCLK), 63 (LRCLK), and 64 (DOUT).</p>
 <h2>AWS Integration</h2>
   <p>Configuration parameters (input source, effect, pitch shift) are retrieved using a <strong>TLS-secured HTTP GET</strong> request to the AWS IoT Shadow endpoint. The JSON response is parsed, and the data is stored in global variables for real-time use.</p>
