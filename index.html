@@ -1147,8 +1147,20 @@
 <header id="title-block-header">
 <h1 class="title">Voice Changer and Guitar Effects Unit</h1>
 Created by Jonathan Lu and Ahsab Alabedin
+  <nav id="TOC" role="doc-toc">
+  <ul>
+    <li><a href="#project-description">Project Description</a></li>
+    <li><a href="#materials">Materials</a></li>
+    <li><a href="#design-implementation">Design & Implementation</a></li>
+    <li><a href="#aws-integration">AWS Integration</a></li>
+    <li><a href="#audio-processing">Audio Processing</a></li>
+    <li><a href="#development-challenges">Development Challenges</a></li>
+    <li><a href="#future-work">Future Work</a></li>
+    <li><a href="#demo">Demo Video</a></li>
+  </ul>
+</nav>
 </header>
-  <h2>Project Description</h2>
+  <h2 id="project-description">Project Description</h2>
   <p>This project is a real-time voice and guitar signal processing unit. It continuously captures audio from either a microphone or an electric guitar and applies digital effects in real time using a TI CC3200 microcontroller. Processed audio is streamed directly to a speaker, enabling a standalone embedded audio processor that operates without any external computing resources.</p>
 
   <h3>Features</h3>
@@ -1163,7 +1175,7 @@ Created by Jonathan Lu and Ahsab Alabedin
     </li>
     <li><strong>Cloud-based configuration</strong> via AWS IoT and HTTP GET requests.</li>
   </ul>
-    <h2>Materials</h2>
+    <h2 id="materials">Materials</h2>
   <ul>
     <li><strong>TI CC3200</li>
     <li><strong>MAX98357 (DAC)</li>
@@ -1176,7 +1188,7 @@ Created by Jonathan Lu and Ahsab Alabedin
       </ul>
     </li>
   </ul>
-    <h2>Design & Implementation</h2>
+    <h2 id="design-implementation">Design & Implementation</h2>
 
   <h3>System Overview</h3>
   <img src="diagram.png" alt="System Architecture" style="max-width: 100%; height: auto;" />
@@ -1204,9 +1216,9 @@ Created by Jonathan Lu and Ahsab Alabedin
     <h3>Hardware Design</h3>
     <img src="pinout.png" alt="Wiring Setup" style="max-width: 100%; height: auto;" />
   <p>Each input (mic/guitar) uses an RC filter to AC-couple and bias the signal to mid-rail. The output connects to ADC Pin 58. The I2S signals for the DAC are mapped to Pins 3 (BCLK), 63 (LRCLK), and 64 (DOUT).</p>
-<h2>AWS Integration</h2>
+<h2 id="aws-integration">AWS Integration</h2>
   <p>Configuration parameters (input source, effect, pitch shift) are retrieved using a <strong>TLS-secured HTTP GET</strong> request to the AWS IoT Shadow endpoint. The JSON response is parsed, and the data is stored in global variables for real-time use.</p>
-  <h2>Audio Processing</h2>
+  <h2 id="audio-processing">Audio Processing</h2>
   <ul>
     <li><strong>Sampling:</strong> ADC samples averaged in groups of 4 to reduce noise.</li>
     <li><strong>DC Offset:</strong> Pre-calibrated zero-point values are subtracted.</li>
@@ -1222,7 +1234,7 @@ Created by Jonathan Lu and Ahsab Alabedin
     <li><strong>Playback:</strong> Processed buffer sent to output via DMA ping-pong into I2S FIFO.</li>
   </ul>
   <section>
-  <h2>Development Challenges</h2>
+  <h2 id="development-challenges">Development Challenges</h2>
   <ul>
     <li><strong>Initial Playback:</strong> Interrupt-based I2S output failed. DMA fixed this issue.</li>
     <li><strong>Memory Limits:</strong> CC3200 couldn’t allocate large output buffers. Reduced size fixed it.</li>
@@ -1234,7 +1246,7 @@ Created by Jonathan Lu and Ahsab Alabedin
     </li>
     <li><strong>FFT Experiment:</strong> Custom fixed-point FFT was too slow. DMA input failed due to buffer limits. Abandoned due to time.</li>
   </ul>
-      <h2>Future Work</h2>
+      <h2 id="future-work">Future Work</h2>
   <ul>
     <li><strong>Efficient FFT</strong> for advanced pitch shifting. Can explore:
       <ul>
@@ -1245,7 +1257,7 @@ Created by Jonathan Lu and Ahsab Alabedin
     </li>
     <li><strong>On-Device Config Control:</strong> Use IR receiver + OLED + TV remote to change effects. Sync via POST to AWS.</li>
   </ul>
-  <h2>Demo Video</h2>
+  <h2 id="demo">Demo Video</h2>
       <div class="video-wrapper">
       <iframe src="https://www.youtube.com/embed/l6fNjFxQzso"
         title="Project Demo Video"
